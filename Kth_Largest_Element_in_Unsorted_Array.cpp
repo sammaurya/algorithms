@@ -60,15 +60,11 @@ int partition(int arr[], int l, int r){
 	for(j = l; j<=r; ++j){
 		if(arr[j] < arr[r]){
 		    i++;
-			temp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = temp;
+			swap(arr[i], arr[j]);
 		}
 	}
     i = i+1;
-	temp = arr[i];
-	arr[i] = arr[r];
-	arr[r] = temp;
+	swap(arr[i], arr[r]);
 
 	return i;
 
