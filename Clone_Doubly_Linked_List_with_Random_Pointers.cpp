@@ -9,6 +9,8 @@
 	2->1
 	3->3
 	4->2
+
+	In time complexity O(n) and space complexity O(1);
 */
 
 #include <bits/stdc++.h>
@@ -25,6 +27,40 @@ struct node
 
 struct node *first = NULL, *first_clone = NULL;
 
+struct node* clonedDoublyLinkedListWithRandomPointers(struct node* head){
+	//Cloning of the Doubly Linked List
+	//Inserting new nodes between the original linked list
+	struct node* cpt = (struct node*)malloc(sizeof(struct node));
+	struct node* ptr = (struct node*)malloc(sizeof(struct node));
+	ptr = head;
+	while(ptr != NULL){
+		struct node* tpr = (struct node*)malloc(sizeof(struct node));
+		tpr->data = ptr->data;
+		tpr->next = ptr->next;
+		ptr->next = tpr;
+		ptr = ptr->next->next;
+	
+	}
+	//Attaching random pointers to the in between nodes of clone linked list
+	ptr = head;
+	while(ptr != NULL){
+		cpt = ptr->next;
+		cpt->random = ptr->random->next;
+		ptr = ptr->next->next;
+	}
+	//Separating of the cloned list from the original list
+	ptr = head;
+	head = cpt = ptr->next;
+	while(cpt->next != NULL){
+		ptr->next = ptr->next->next;
+		ptr = ptr->next;
+		cpt->next = cpt->next->next;
+		cpt = cpt->next;
+	}
+	ptr->next = NULL;
+	
+	return head;
+}
 
 int main(){
 	//Creation of Doubly Linked List with value 1 2 3 4 and normal pointers
@@ -78,43 +114,8 @@ int main(){
 	}
 	printf("\n");
 
-	//Cloning of the Doubly Linked List
-	//Inserting new nodes between the original linked list
-	printf("Inserting node in between original linked list");
-	ptr = first;
-	while(ptr != NULL){
-		struct node* tpr = (struct node*)malloc(sizeof(struct node));
-		tpr->data = ptr->data;
-		tpr->next = ptr->next;
-		ptr->next = tpr;
-		ptr = ptr->next->next;
+	first_clone = clonedDoublyLinkedListWithRandomPointers(first);
 	
-	}
-	printf("\nInserted");
-	//Attaching random pointers to the in between nodes of clone linked list
-	printf("\nAttaching random pointers to the cloned linked list");
-	ptr = first;
-	while(ptr != NULL){
-		cpt = ptr->next;
-		cpt->random = ptr->random->next;
-		ptr = ptr->next->next;
-	}
-	printf("\nRandom pointers attached");
-	//Separating of the cloned list from the original list
-	printf("\nSeparating two linked list");
-	ptr = first;
-	first_clone = ptr->next;
-	cpt = first_clone;
-	while(cpt->next != NULL){
-		ptr->next = ptr->next->next;
-		ptr = ptr->next;
-		cpt->next = cpt->next->next;
-		cpt = cpt->next;
-	}
-	ptr->next = NULL;
-	
-	printf("\nTwo linked list separated");
-
 	//Print Doubly Linked List
 	printf("\nCloned Doubly Linked List With Normal Pointers:\n");
 	ptr = first_clone;
