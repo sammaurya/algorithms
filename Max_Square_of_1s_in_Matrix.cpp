@@ -5,6 +5,9 @@ Input:
 First line, N,M number of rows and columns respectively
 Next N line, M integers which is values in the matrix
 
+Output:
+Size of largest square of 1's
+
 Sample Input:
 4 5
 1 0 0 1 0
