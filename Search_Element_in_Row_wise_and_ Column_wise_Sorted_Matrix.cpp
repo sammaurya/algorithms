@@ -53,13 +53,14 @@ int go(){
     int N,M,K,i,j;
     FS_int(N);
     FS_int(M);
-  
+  	//Input Matrix Element
 	int matrix[N][M];
 	for(i=0; i<N; ++i){
 		for(j=0; j<M; ++j)
 			FS_int(matrix[i][j]);
 	}
 	
+	//Value to be searched
 	FS_int(K);
 
 	//Searching element in matrix using Binary Search and index mapping from 1D to 2D
@@ -72,6 +73,46 @@ int go(){
 	        i--;
 	    else
 	        j++;
+	}
+	
+	
+	return 0;
+}
+
+//More efficient method
+int go_1(){
+    int N,M,K,i,j;
+    FS_int(N);
+    FS_int(M);
+  	//Input Matrix Element
+	int matrix[N][M];
+	for(i=0; i<N; ++i){
+		for(j=0; j<M; ++j)
+			FS_int(matrix[i][j]);
+	}
+	//Value to be searched
+	FS_int(K);
+
+	//Searching element in matrix using Binary Search and index mapping from 1D to 2D
+	i = N-1;
+	j = 0;
+	int x = 0, y = M-1;
+	while(!(i < 0 || j > M-1 || x > N-1 || y < 0)){
+		//Starting from bottom left
+	    if(matrix[i][j] == K)
+	        return 1;
+	    else if(matrix[i][j] > K)
+	        i--;
+	    else
+	        j++;
+	   
+	   	//Starting from top right
+	    if(matrix[x][y] == K)
+	        return 1;
+	    else if(matrix[x][y] > K)
+	        y--;
+	    else
+	        x++;
 	}
 	
 	
