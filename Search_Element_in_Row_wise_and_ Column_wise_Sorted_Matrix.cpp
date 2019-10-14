@@ -1,5 +1,5 @@
 /*
-	Search integer value K in a 2D sorted matrix.
+	Search integer K in  a row-wise and column-wise sorted matrix.
 
 	Input:
 	First line, T number of test cases
@@ -11,29 +11,30 @@
 	True if K is found in matrix, 
 	FALSE if K is not found in matrix, each in newline
 
+
 	Sample Input:
 	2
-	3 4
-	0 1 2 3
-	4 5 6 7
-	8 9 10 11
-	5
-	3 4
-	0 1 2 3
-	4 5 6 7
-	8 9 10 11
+	4 4
+	1 2 3 4
+	8 11 12 13
+	9 14 15 16
+	10 17 18 19
+	7
+	4 4
+	1 2 3 4
+	8 11 12 13
+	9 14 15 16
+	10 17 18 19
 	12
-	
 	Sample Output:
-	True
 	FALSE
+	TRUSE
 
 	Complexity:
-	Time Complexity : O(logNM)
+	Time Complexity : O(log(N + M))
 	Space Complexity : O(1)
-	
-*/
 
+*/
 
 #include <bits/stdc++.h>
 
@@ -62,20 +63,15 @@ int go(){
 	FS_int(K);
 
 	//Searching element in matrix using Binary Search and index mapping from 1D to 2D
-	int s = 0, e = N*M-1;
-	int mid;
-	while(s <= e){
-	    mid = (s+e)/2;
-	    i = mid/N;
-	    j = mid%M;
-	    //Found element at index i, j
-	    if(matrix[i][j] == K){
+	i = N-1;
+	j = 0;
+	while(!(i < 0 || j < 0)){
+	    if(matrix[i][j] == K)
 	        return 1;
-	    }
-	    else if(matrix[i][j] < K)
-	        s = mid + 1;
+	    else if(matrix[i][j] > K)
+	        i--;
 	    else
-	        e = mid - 1;
+	        j++;
 	}
 	
 	
